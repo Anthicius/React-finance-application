@@ -1,20 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { calculateInvestmentResults } from "../util/investment";
 
-export const UserInput = () => {
-  const [initInvestment, setInitInvestment] = useState(null);
-  const [anualInvestment, setAnualInvestment] = useState(null);
-  const [exReturn, setExReturn] = useState(null);
-  const [duration, setDuration] = useState(null);
+export const UserInput = ({ onInputChange }) => {
+  const [initInvestment, setInitInvestment] = useState("");
+  const [anualInvestment, setAnualInvestment] = useState("");
+  const [exReturn, setExReturn] = useState("");
+  const [duration, setDuration] = useState("");
 
-  if(initInvestment && anualInvestment && exReturn && duration){
-  const results = calculateInvestmentResults({
-    initialInvestment: initInvestment,
-    annualInvestment: anualInvestment,
-    expectedReturn: exReturn,
-    duration: duration,
-  });
-}
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "initInvestment") setInitInvestment(value);
+    if (name === "anualInvestment") setAnualInvestment(value);
+    if (name === "expReturn") setExReturn(value);
+    if (name === "duration") setDuration(value);
+  };
+
+
+  useEffect(() => {
+    if (initInvestment && anualInvestment && exReturn && duration) {
+      const results = calculateInvestmentResults({
+        initialInvestment: Number(initInvestment),
+        annualInvestment: Number(anualInvestment),
+        expectedReturn: Number(exReturn),
+        duration: Number(duration),
+      });
+
+      onInputChange(results);
+    }
+  }, [initInvestment, anualInvestment, exReturn, duration]); 
 
   return (
     <div id="user-input">
@@ -26,7 +41,7 @@ export const UserInput = () => {
             id="initInvestment"
             name="initInvestment"
             value={initInvestment}
-            onChange={(e) => setInitInvestment(e.target.value)}
+            onChange={handleInputChange}
             required
             min={1}
           />
@@ -38,7 +53,7 @@ export const UserInput = () => {
             id="anualInvestment"
             name="anualInvestment"
             value={anualInvestment}
-            onChange={(e) => setAnualInvestment(e.target.value)}
+            onChange={handleInputChange}
             required
             min={1}
           />
@@ -52,7 +67,7 @@ export const UserInput = () => {
             id="expReturn"
             name="expReturn"
             value={exReturn}
-            onChange={(e) => setExReturn(e.target.value)}
+            onChange={handleInputChange}
             required
             min={1}
           />
@@ -63,10 +78,10 @@ export const UserInput = () => {
             type="number"
             id="duration"
             name="duration"
+            value={duration}
+            onChange={handleInputChange}
             required
             min={1}
-            value={duration}
-            onChange={(e) => setDuration(e.target.value)}
           />
         </label>
       </div>

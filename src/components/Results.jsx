@@ -1,7 +1,7 @@
 import React from "react";
 import Result from "./Result";
 
-const Results = () => {
+const Results = ({userInput}) => {
   return (
     <table id="result">
       <thead>
@@ -13,7 +13,8 @@ const Results = () => {
           <th>Investment Capital</th>
         </tr>
       </thead>
-
+      {console.log(userInput)}
+      {userInput ? <Result data = {userInput}/> : "wq"}
     </table>
   );
 };

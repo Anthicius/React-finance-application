@@ -1,9 +1,19 @@
-import React from 'react'
+import React from "react";
+import { formatter } from "../util/investment";
 
-const Result = () => {
+const Result = ({ data }) => {
   return (
-    <div>Result</div>
-  )
-}
+    <>
+      {data.map((item) => (
+        <tr key={item.year}>
+          <td>{item.year}</td>
+          <td>{formatter.format(item.valueEndOfYear)}</td>
+          <td>{formatter.format(item.interest)}</td>
+          <td>{formatter.format(item.annualInvestment)}</td>
+        </tr>
+      ))}
+    </>
+  );
+};
 
-export default Result
+export default Result;
