@@ -12,12 +12,11 @@ function App() {
   };
 
   return (
-    <div>
+    <>
       <Header />
       <UserInput onInputChange={handleUserInputChange} /> 
-      {console.log(userInput)}
       <Results userInput = {userInput} />
-    </div>
+    </>
   );
 }
 
