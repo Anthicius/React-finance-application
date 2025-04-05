@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { calculateInvestmentResults } from "../util/investment";
+import React, { useState } from "react";
 
 export const UserInput = ({ onInputChange }) => {
+  
   const [userInput, setUserInput] = useState({
     initialInvestment: 10000,
     annualInvestment: 1200,
@@ -10,12 +10,12 @@ export const UserInput = ({ onInputChange }) => {
   });
 
   const handleInputChange = (inputIdentifier, newValue) => {
-    setUserInput((prevUserInput) => {
-      return {
-        ...prevUserInput,
-        [inputIdentifier]: newValue,
-      };
-    });
+    const updatedInput = {
+      ...userInput,
+      [inputIdentifier]: +newValue,
+    };
+    setUserInput(updatedInput);        
+    onInputChange(updatedInput);      
   };
 
   return (

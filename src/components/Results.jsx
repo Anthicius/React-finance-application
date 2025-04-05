@@ -13,8 +13,9 @@ const Results = ({userInput}) => {
           <th>Investment Capital</th>
         </tr>
       </thead>
-      {console.log(userInput)}
-      {userInput ? <Result data = {userInput}/> : "wq"}
+      <tbody>
+      {userInput ? <Result data = {userInput}/> : "No data available."}
+      </tbody>
     </table>
   );
 };
